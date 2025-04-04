@@ -1,10 +1,10 @@
 # Ollama MCP (Multi-Agent Control Protocol)
 
-A Python-based multi-agent system that uses Ollama's language models to control and coordinate multiple agents through a Master Control Program (MCP) architecture.
+A Python-based multi-agent system that uses Ollama's language models to control and coordinate multiple agents through a model context protocol (MCP) architecture.
 
 ## Overview
 
-This project implements a flexible multi-agent system where each agent can be configured to perform specific tasks using Ollama's language models. The system uses a Master Control Program (MCP) pattern to manage and coordinate these agents.
+This project implements a flexible multi-agent system where each agent can be configured to perform specific tasks using Ollama's language models. The system uses a model context protocol (MCP) pattern to manage and coordinate these agents.
 
 ## Features
 
