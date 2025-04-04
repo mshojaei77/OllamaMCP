@@ -1,0 +1,37 @@
+{
+  "mcpServers": {
+    "mcp-server-firecrawl": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "YOUR_API_KEY_HERE"
+      },
+      "active": true,
+      "instructions": "You help search and crawl web pages using Firecrawl."
+    },
+    "time": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-time"
+      ],
+      "env": {
+        "TZ": "UTC"
+      },
+      "active": false,
+      "instructions": "You provide time-related information and conversions in UTC timezone."
+    },
+    "airbnb": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@openbnb/mcp-server-airbnb",
+        "--ignore-robots-txt"
+      ],
+      "active": true,
+      "instructions": "You help book apartments on Airbnb."
+    }
+  }
+}
