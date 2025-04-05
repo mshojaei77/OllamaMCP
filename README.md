@@ -1,68 +1,66 @@
-# Ollama MCP (Multi-Agent Control Protocol)
+# Ollama MCP Chatbot
 
-A Python-based multi-agent system that uses Ollama's language models to control and coordinate multiple agents through a model context protocol (MCP) architecture.
-
-## Overview
-
-This project implements a flexible multi-agent system where each agent can be configured to perform specific tasks using Ollama's language models. The system uses a model context protocol (MCP) pattern to manage and coordinate these agents.
+A chatbot implementation that combines [Ollama](https://ollama.ai/) with MCP (Machine Control Protocol) tools support. This allows the chatbot to use tools to perform tasks like calculations while maintaining conversation memory.
 
 ## Features
 
-- Multiple agent support with individual configurations
-- Integration with Ollama language models (currently using llama3.2)
-- Configurable MCP servers through JSON configuration
-- Flexible command and argument structure for each agent
-- Active/inactive state management for servers
+- Uses Ollama for LLM capabilities with LangChain integration
+- Integrates MCP tools for extended capabilities 
+- Maintains conversation history
+- Supports custom system prompts
+- Detailed logging and error handling
 
 ## Requirements
 
-- Python 3.x
-- Ollama installed and running
-- `praisonaiagents` package
-- Access to Ollama language models
-
-## Configuration
-
-The system uses a `mpc_servers.json` file to configure different MCP servers. Example configuration structure:
-
-```json
-{
-    "mcpServers": {
-        "serverName": {
-            "active": true,
-            "command": "command_to_run",
-            "args": ["arg1", "arg2"],
-            "instructions": "Agent specific instructions"
-        }
-    }
-}
 ```
+pip install langchain-ollama langchain-core langchain-mcp-adapters langgraph python-dotenv
+```
+
+You'll also need:
+- Ollama running locally (or specify a custom host)
+- The UVX MCP server tools installed (`uvx mcp-server-calculator`)
 
 ## Usage
 
-1. Ensure your `mpc_servers.json` is properly configured
-2. Run the main script:
-
-```bash
-python ollama_mcp.py
-```
-
-## Example
-
-The script includes an example usage with an Airbnb agent:
+Run the example in `ollama_mcp_chatbot.py`:
 
 ```python
-if 'airbnb' in agents:
-    airbnb_agent = agents['airbnb']
-    response = airbnb_agent.start("Search for Apartments in Paris for 2 nights. 04/28 - 04/30 for 2 adults.")
+# Initialize the chatbot with MCP tools
+chatbot = OllamaMCPChatbot(
+    model_name="llama3.2",
+    system_message="You are a helpful AI assistant that can use tools to solve problems.",
+    verbose=True
+)
+
+# Chat with the bot
+response = await chatbot.chat("what's (3 + 5) x 12?")
+print(f"Bot: {response}")
 ```
 
-## Project Structure
+## Customization
 
-- `ollama_mcp.py`: Main script containing the MCP implementation
-- `mpc_servers.json`: Configuration file for MCP servers
+You can customize the MCP server and tools by changing the initialization parameters:
 
-## Contributing
+```python
+chatbot = OllamaMCPChatbot(
+    model_name="llama3.2",
+    base_url="http://your-ollama-host:11434",
+    temperature=0.5,  
+    mcp_server_command="your-command",
+    mcp_server_args=["your", "args"],
+    verbose=True
+)
+```
 
-Feel free to contribute to this project by submitting issues or pull requests.
+## Architecture
+
+This implementation:
+1. Extends the `BaseChatbot` class with MCP tool support
+2. Uses LangChain's ReAct agent pattern to handle tool usage
+3. Manages MCP connections appropriately through async context managers
+4. Provides proper cleanup of resources
+
+## License
+
+MIT
 

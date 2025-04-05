@@ -32,6 +32,12 @@
       ],
       "active": true,
       "instructions": "You help book apartments on Airbnb."
+    },
+    "calculator": {
+      "command": "uvx",
+      "args": ["mcp-server-calculator"],
+      "active": false,
+      "instructions": "You help with calculations."
     }
   }
 }
